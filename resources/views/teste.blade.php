@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>El teste</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -12,10 +12,10 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: rgb(0, 1, 71);
+                background-color: rgb(0, 0, 0);
                 color: #ffffff;
                 font-family: 'Nunito', sans-serif;
-                font-weight: 200;
+                font-weight: 300;
                 height: 100vh;
                 margin: 0;
             }
@@ -51,7 +51,7 @@
             .links > a {
                 color: #ffffff;
                 padding: 0 25px;
-                font-size: 13px;
+                font-size: 17px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    El teste
                 </div>
 
                 <div class="links">
