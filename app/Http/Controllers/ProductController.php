@@ -16,12 +16,11 @@ class ProductController extends Controller
         //     'create'
         // ]);
         $this->middleware('auth')->except([
-            'index', 'show'
+            'index', 'show', 'create'
     ]);
     }
 
-    public function index()
-    {
+    public function index() {
         $teste = 123;
 
         $teste2 = [];
@@ -32,36 +31,31 @@ class ProductController extends Controller
     }
 
 
-    public function create()
-    {
+    public function create() {
+        return view('admin.pages.products.create');
     }
 
 
-    public function store(Request $request)
-    {
-
+    public function store(Request $request) {
+        dd('Cadastrando...');
     }
 
-    public function show($id)
-    {
+    public function show($id) {
         return "Detalhes do produto {$id}";
     }
 
 
-    public function edit($id)
-    {
+    public function edit($id) {
 
     }
 
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
 
     }
 
 
-    public function destroy($id)
-    {
+    public function destroy($id) {
 
     }
 
