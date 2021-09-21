@@ -81,10 +81,21 @@
 @endsection
 
 
-<style>
-    .last{
-        font-size: 20px;
-        color: #ffffff;
-        background: rgb(3, 1, 95);
+@push('styles')
+    <style>
+        .last{
+            font-size: 20px;
+            color: #ffffff;
+            background: rgb(0, 0, 0);
         }
-</style>
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        document.body.style.fontSize = '20px';
+        document.body.style.color = '#ffffff';
+        document.body.style.background = 'rgb(3, 1, 95)'
+    </script>
+@endpush
+
