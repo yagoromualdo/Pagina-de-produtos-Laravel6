@@ -16,7 +16,7 @@ class ProductController extends Controller
         //     'create'
         // ]);
         $this->middleware('auth')->except([
-            'index', 'show', 'create'
+            'index', 'show', 'create', 'edit', 'update'
     ]);
     }
 
@@ -46,12 +46,12 @@ class ProductController extends Controller
 
 
     public function edit($id) {
-
+        return view('admin.pages.products.edit', compact('id'));
     }
 
 
     public function update(Request $request, $id) {
-
+        dd("Editado o produto {$id}");
     }
 
 
