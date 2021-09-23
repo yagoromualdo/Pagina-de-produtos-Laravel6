@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,7 +17,7 @@ class ProductController extends Controller
         //     'create'
         // ]);
         $this->middleware('auth')->except([
-            'index', 'show', 'create', 'edit', 'update'
+            'index', 'show', 'create', 'edit', 'update', 'store'
     ]);
     }
 
@@ -36,8 +37,22 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request) {
-        dd('Cadastrando...');
+    public function store(StoreUpdateProductRequest $request) {
+
+        /*
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'nullable|min:3|max:10000',
+            'photo' => 'required|image'
+        ]);
+        */
+
+        dd('OK');
+
+        if ($request->file('photo')->isValid()) {
+            $nameFile =$request->name . '.' . $request->photo->extension();
+            dd($request->file('photo')->storeAs('products', $nameFile));
+        }
     }
 
     public function show($id) {
