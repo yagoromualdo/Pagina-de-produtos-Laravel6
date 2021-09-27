@@ -9,16 +9,18 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     protected $request;
+    private $repository;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Product $product)
     {
         $this->request = $request;
+        $this->repository = $product;
 
         // $this->middleware('auth')->only([
         //     'create'
         // ]);
         $this->middleware('auth')->except([
-            'index', 'show', 'create', 'edit', 'update', 'store'
+            'index', 'show', 'create', 'edit', 'update', 'store', 'destroy'
     ]);
     }
 
@@ -38,25 +40,21 @@ class ProductController extends Controller
 
 
     public function store(StoreUpdateProductRequest $request) {
+        $data = $request->only('name', 'description', 'price');
 
-        /*
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'nullable|min:3|max:10000',
-            'photo' => 'required|image'
-        ]);
-        */
+        $this->repository->create($data);
 
-        dd('OK');
-
-        if ($request->file('photo')->isValid()) {
-            $nameFile =$request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products', $nameFile));
-        }
+        return redirect()->route('products.index');
     }
 
     public function show($id) {
-        return "Detalhes do produto {$id}";
+
+        if (!$product =$this->repository->find($id))
+        return redirect()->back();
+
+        return view('admin.pages.products.show', [
+            'product'=>$product
+        ]);
     }
 
 
@@ -71,7 +69,13 @@ class ProductController extends Controller
 
 
     public function destroy($id) {
+        $product = $this->repository->where('id',$id)->first();
+        if (!$product)
+            return redirect()->back();
 
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 
 }
