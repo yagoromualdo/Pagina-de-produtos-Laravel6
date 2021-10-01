@@ -20,7 +20,7 @@ class ProductController extends Controller
         //     'create'
         // ]);
         $this->middleware('auth')->except([
-            'index', 'show', 'create', 'edit', 'update', 'store', 'destroy'
+            'index', 'show', 'create', 'edit', 'update', 'store', 'destroy', 'search'
     ]);
     }
 
@@ -41,6 +41,12 @@ class ProductController extends Controller
 
     public function store(StoreUpdateProductRequest $request) {
         $data = $request->only('name', 'description', 'price');
+
+        if ($request->hasFile('image') && $request->image->isValid()) {
+            $imagePath = $request->image->store('products');
+
+            $data['image'] = $imagePath;
+        }
 
         $this->repository->create($data);
 
@@ -84,6 +90,18 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index');
+    }
+
+    public function search(Request $request) {
+
+        $filters = $request->except('_token');
+
+        $products = $this->repository->search($request->filter);
+
+        return view('admin.pages.products.index', [
+            'products' => $products,
+            'filters' => $filters,
+        ]);
     }
 
 }
